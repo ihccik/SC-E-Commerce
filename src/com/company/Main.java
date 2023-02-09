@@ -212,6 +212,7 @@ public class Main {
   }
 
   private static void updateProductStock(Map<Product, Integer> map) {
+      //a comment
     map.keySet().stream().forEach(
         product -> product.setRemainingStock(product.getRemainingStock() - map.get(product)));
   }
