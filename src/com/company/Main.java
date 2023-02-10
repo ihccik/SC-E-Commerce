@@ -212,8 +212,9 @@ public class Main {
   }
 
   private static void updateProductStock(Map<Product, Integer> map) {
-    map.keySet().stream().forEach(
-        product -> product.setRemainingStock(product.getRemainingStock() - map.get(product)));
+    for (Product product : map.keySet()) {
+      product.setRemainingStock(product.getRemainingStock() - map.get(product));
+    }
   }
 
   private static void printOrdersByCustomerId(UUID customerId) {
