@@ -31,11 +31,9 @@ public class DataGenerator {
         Customer customer2 = new Customer(UUID.randomUUID(),"mike","mike@gmail.com");
         Customer customer3=new Customer(UUID.randomUUID(),"Kicchi","kicchi@gmail.com");
 
-
         StaticConstants.CUSTOMER_LIST.add(customer1);
         StaticConstants.CUSTOMER_LIST.add(customer2);
         StaticConstants.CUSTOMER_LIST.add(customer3);
-
     }
 
     public static void createCategory(){
