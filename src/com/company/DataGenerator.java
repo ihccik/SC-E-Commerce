@@ -29,9 +29,13 @@ public class DataGenerator {
 
         Customer customer1 = new Customer(UUID.randomUUID(),"ozzy","ozzy@cydeo.com",customer1AddressList);
         Customer customer2 = new Customer(UUID.randomUUID(),"mike","mike@gmail.com");
+        Customer customer3=new Customer(UUID.randomUUID(),"Kicchi","kicchi@gmail.com");
+
 
         StaticConstants.CUSTOMER_LIST.add(customer1);
         StaticConstants.CUSTOMER_LIST.add(customer2);
+        StaticConstants.CUSTOMER_LIST.add(customer3);
+
     }
 
     public static void createCategory(){
@@ -68,10 +72,14 @@ public class DataGenerator {
     public static void createBalance(){
 
         Balance customerBalance = new CustomerBalance(StaticConstants.CUSTOMER_LIST.get(0).getId(),450.00);
+        Balance giftCardBalance1 = new GiftCardBalance(StaticConstants.CUSTOMER_LIST.get(0).getId(),0.0);
+        Balance giftCardBalance2=new GiftCardBalance(StaticConstants.CUSTOMER_LIST.get(2).getId(),350.0);
         Balance giftCardBalance = new GiftCardBalance(StaticConstants.CUSTOMER_LIST.get(1).getId(),500.00);
 
         StaticConstants.CUSTOMER_BALANCE_LIST.add(customerBalance);
         StaticConstants.GIFT_CARD_BALANCE_LIST.add(giftCardBalance);
+        StaticConstants.GIFT_CARD_BALANCE_LIST.add(giftCardBalance1);
+        StaticConstants.GIFT_CARD_BALANCE_LIST.add(giftCardBalance2);
     }
 
     public static void createDiscount(){
