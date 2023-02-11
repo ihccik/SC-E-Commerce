@@ -20,7 +20,7 @@ import static com.company.StaticConstants.ORDER_LIST;
 
 public class Main {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
 
     DataGenerator.createCustomer();
     DataGenerator.createCategory();
@@ -51,154 +51,144 @@ public class Main {
       int menuSelection = scanner.nextInt();
 
       switch (menuSelection) {
-        case 0: //list categories
-          for (Category category : StaticConstants.CATEGORY_LIST) {
-            System.out.println(
-                "Category Code:" + category.generateCategoryCode() + " category name:"
-                    + category.getName());
-          }
-          break;
-        case 1: //list products  //product name, product category name
-          try {
-            for (Product product : StaticConstants.PRODUCT_LIST) {
-              System.out.println("Product Name:" + product.getName() + "Product Category Name:"
-                  + product.getCategoryName());
-            }
-          } catch (Exception e) {
-            System.out.println(
-                "Product could not printed because category not found for product name:"
-                    + e.getMessage().split(",")[1]);
-          }
-          break;
-        case 2: //list discounts
-          for (Discount discount : StaticConstants.DISCOUNT_LIST) {
-            System.out.println(
-                "Discount Name: " + discount.getName() + "discount threshold amount: "
-                    + discount.getThresholdAmount());
-          }
-          break;
-        case 3://see balance
-          CustomerBalance cBalance = findCustomerBalance(customer.getId());
-          GiftCardBalance gBalance = findGiftCardBalance(customer.getId());
-          double totalBalance = cBalance.getBalance() + gBalance.getBalance();
-          System.out.println("Total Balance:" + totalBalance);
-          System.out.println("Customer Balance:" + cBalance.getBalance());
-          System.out.println("Gift Card Balance:" + gBalance.getBalance());
-          break;
-        case 4://add balance
-          CustomerBalance customerBalance = findCustomerBalance(customer.getId());
-          GiftCardBalance giftCardBalance = findGiftCardBalance(customer.getId());
-          System.out.println("Which Account would you like to add?");
-          System.out.println("Type 1 for Customer Balance:" + customerBalance.getBalance());
-          System.out.println("Type 2 for Gift Card Balance:" + giftCardBalance.getBalance());
-          int balanceAccountSelection = scanner.nextInt();
-          System.out.println("How much you would like to add?");
-          double additionalAmount = scanner.nextInt();
-
-          switch (balanceAccountSelection) {
-            case 1:
-              customerBalance.addBalance(additionalAmount);
-              System.out.println("New Customer Balance:" + customerBalance.getBalance());
+          case 0: //list categories
+              for (Category category : StaticConstants.CATEGORY_LIST) {
+                  System.out.println(
+                          "Category Code:" + category.generateCategoryCode() + " category name:"
+                                  + category.getName());
+              }
               break;
-            case 2:
-              giftCardBalance.addBalance(additionalAmount);
-              System.out.println("New Gift Card Balance:" + giftCardBalance.getBalance());
-              break;
-          }
-          break;
-        case 5://place an order
-          Map<Product, Integer> map = new HashMap<>();
-          cart.setProductMap(map);
-          while (true) {
-            System.out.println(
-                "Which product you want to add to your cart. For exit product selection Type : exit");
-            for (Product product : StaticConstants.PRODUCT_LIST) {
+          case 1: //list products  //product name, product category name
               try {
-                System.out.println(
-                    "id:" + product.getId() + "price:" + product.getPrice() +
-                        "product category" + product.getCategoryName() +
-                        "stock:" + product.getRemainingStock() +
-                        "product delivery due:" + product.getDeliveryDueDate());
+                  for (Product product : StaticConstants.PRODUCT_LIST) {
+                      System.out.println("Product Name:" + product.getName() + "Product Category Name:"
+                              + product.getCategoryName());
+                  }
               } catch (Exception e) {
-                System.out.println(e.getMessage());
-                ;
+                  System.out.println(
+                          "Product could not printed because category not found for product name:"
+                                  + e.getMessage().split(",")[1]);
               }
-            }
-            String productId = scanner.next();
-
-            try {
-              Product product = findProductById(productId);
-              if (!putItemToCartIfStockAvailable(cart, product)) {
-                System.out.println("Stock is insufficient. Please try again");
-                continue;
-              }
-            } catch (Exception e) {
-              System.out.println("Product does not exist. please try again");
-              continue;
-            }
-
-            System.out.println(
-                "Do you want to add more product. Type Y for adding more, N for exit");
-            String decision = scanner.next();
-            if (!decision.equals("Y")) {
               break;
-            }
-          }
-
-          System.out.println(
-              "seems there are discount options. Do you want to see and apply to your cart if it is applicable. For no discount type no");
-          for (Discount discount : DISCOUNT_LIST) {
-            System.out.println(
-                "discount id " + discount.getId() + " discount name: " + discount.getName());
-          }
-          String discountId = scanner.next();
-          if (!discountId.equals("no")) {
-            try {
-              Discount discount = findDiscountById(discountId);
-              if (discount.decideDiscountIsApplicableToCart(cart)) {
-                cart.setDiscountId(discount.getId());
+          case 2: //list discounts
+              for (Discount discount : StaticConstants.DISCOUNT_LIST) {
+                  System.out.println(
+                          "Discount Name: " + discount.getName() + "discount threshold amount: "
+                                  + discount.getThresholdAmount());
               }
-            } catch (Exception e) {
-              System.out.println(e.getMessage());
-            }
+              break;
+          case 3://see balance
+              CustomerBalance cBalance = findCustomerBalance(customer.getId());
+              GiftCardBalance gBalance = findGiftCardBalance(customer.getId());
+              double totalBalance = cBalance.getBalance() + gBalance.getBalance();
+              System.out.println("Total Balance:" + totalBalance);
+              System.out.println("Customer Balance:" + cBalance.getBalance());
+              System.out.println("Gift Card Balance:" + gBalance.getBalance());
+              break;
+          case 4://add balance
+              CustomerBalance customerBalance = findCustomerBalance(customer.getId());
+              GiftCardBalance giftCardBalance = findGiftCardBalance(customer.getId());
+              System.out.println("Which Account would you like to add?");
+              System.out.println("Type 1 for Customer Balance:" + customerBalance.getBalance());
+              System.out.println("Type 2 for Gift Card Balance:" + giftCardBalance.getBalance());
+              int balanceAccountSelection = scanner.nextInt();
+              System.out.println("How much you would like to add?");
+              double additionalAmount = scanner.nextInt();
 
-          }
+              switch (balanceAccountSelection) {
+                  case 1:
+                      customerBalance.addBalance(additionalAmount);
+                      System.out.println("New Customer Balance:" + customerBalance.getBalance());
+                      break;
+                  case 2:
+                      giftCardBalance.addBalance(additionalAmount);
+                      System.out.println("New Gift Card Balance:" + giftCardBalance.getBalance());
+                      break;
+              }
+              break;
+          case 5://place an order
+              Map<Product, Integer> map = new HashMap<>();
+              cart.setProductMap(map);
+              while (true) {
+                  System.out.println(
+                          "Which product you want to add to your cart. For exit product selection Type : exit");
+                  for (Product product : StaticConstants.PRODUCT_LIST) {
+                      try {
+                          System.out.println(
+                                  "id:" + product.getId() + "price:" + product.getPrice() +
+                                          "product category" + product.getCategoryName() +
+                                          "stock:" + product.getRemainingStock() +
+                                          "product delivery due:" + product.getDeliveryDueDate());
+                      } catch (Exception e) {
+                          System.out.println(e.getMessage());
+                          ;
+                      }
+                  }
+                  String productId = scanner.next();
 
-          OrderService orderService = new OrderServiceImpl();
-          String result = orderService.placeOrder(cart);
-          if (result.equals("Order has been placed successfully")) {
-            System.out.println("Order is successful");
-            updateProductStock(cart.getProductMap());
-            cart.setProductMap(new HashMap<>());
-            cart.setDiscountId(null);
-          } else {
-            System.out.println(result);
-          }
-          break;
-        case 6://See cart
-          System.out.println("Your Cart");
-          if (!cart.getProductMap().keySet().isEmpty()) {
-            for (Product product : cart.getProductMap().keySet()) {
+                  try {
+                      Product product = findProductById(productId);
+                      if (!putItemToCartIfStockAvailable(cart, product)) {
+                          System.out.println("Stock is insufficient. Please try again");
+                          continue;
+                      }
+                  } catch (Exception e) {
+                      System.out.println("Product does not exist. please try again");
+                      continue;
+                  }
+
+                  System.out.println(
+                          "Do you want to add more product. Type Y for adding more, N for exit");
+                  String decision = scanner.next();
+                  if (!decision.equals("Y")) {
+                      break;
+                  }
+              }
+
               System.out.println(
-                      "product name: " + product.getName() + " count: " + cart.getProductMap()
-                              .get(product));
-            }
-          } else {
-            System.out.println("Your cart is empty");
-          }
-          break;
-          /*
+                      "seems there are discount options. Do you want to see and apply to your cart if it is applicable. For no discount type no");
+              for (Discount discount : DISCOUNT_LIST) {
+                  System.out.println(
+                          "discount id " + discount.getId() + " discount name: " + discount.getName());
+              }
+              String discountId = scanner.next();
+              if (!discountId.equals("no")) {
+                  try {
+                      Discount discount = findDiscountById(discountId);
+                      if (discount.decideDiscountIsApplicableToCart(cart)) {
+                          cart.setDiscountId(discount.getId());
+                      }
+                  } catch (Exception e) {
+                      System.out.println(e.getMessage());
+                  }
 
-          try {
-            if (cart.getProductMap().keySet() == null || cart.getProductMap().keySet().isEmpty()) {
+              }
 
-              System.err.println("There is no product added to cart yet");
-            }
-          }catch(NullPointerException e){
-                e.printStackTrace();
-          }
-
-           */
+              OrderService orderService = new OrderServiceImpl();
+              String result = orderService.placeOrder(cart);
+              if (result.equals("Order has been placed successfully")) {
+                  System.out.println("Order is successful");
+                  updateProductStock(cart.getProductMap());
+                  cart.setProductMap(new HashMap<>());
+                  cart.setDiscountId(null);
+              } else {
+                  System.out.println(result);
+              }
+              break;
+          case 6://See cart
+              System.out.println("Your Cart");
+              if(cart.getProductMap() != null) {
+                 if (!cart.getProductMap().keySet().isEmpty()) {
+                  for (Product product : cart.getProductMap().keySet()) {
+                      System.out.println(
+                              "product name: " + product.getName() + " count: " + cart.getProductMap()
+                                      .get(product));
+                      }
+                  }
+              }else{
+                  System.err.println("There is no product added to cart yet");
+              }
+              break;
         case 7://see order details
           printOrdersByCustomerId(customer.getId());
           break;
