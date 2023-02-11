@@ -202,14 +202,16 @@ public class Main {
           break;
         case 6://See cart
           System.out.println("Your Cart");
-          if (!cart.getProductMap().keySet().isEmpty()) {
-            for (Product product : cart.getProductMap().keySet()) {
-              System.out.println(
-                  "product name: " + product.getName() + " count: " + cart.getProductMap()
-                      .get(product));
+          if (cart.getProductMap() != null) {
+            if (!cart.getProductMap().keySet().isEmpty()) {
+              for (Product product : cart.getProductMap().keySet()) {
+                System.out.println(
+                    "product name: " + product.getName() + " count: " + cart.getProductMap()
+                        .get(product));
+              }
             }
           } else {
-            System.out.println("Your cart is empty");
+            System.err.println("There is no product added to cart yet");
           }
           break;
         case 7://see order details
