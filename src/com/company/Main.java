@@ -20,7 +20,7 @@ import static com.company.StaticConstants.ORDER_LIST;
 
 public class Main {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
 
     DataGenerator.createCustomer();
     DataGenerator.createCategory();
