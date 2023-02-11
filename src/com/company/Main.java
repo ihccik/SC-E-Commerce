@@ -232,7 +232,7 @@ public class Main {
     Map<UUID, String> mapIdAndName = StaticConstants.CUSTOMER_LIST.stream()
         .collect(Collectors.toMap(Customer::getId, Customer::getUserName));
     List<UUID> uuidList = StaticConstants.CUSTOMER_LIST.stream()
-        .map(Customer::getId).toList();
+        .map(Customer::getId).collect(Collectors.toList());
 
     mapIdAndName.remove(id);
 
