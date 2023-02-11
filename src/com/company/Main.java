@@ -9,10 +9,8 @@ import com.company.order.Order;
 import com.company.order.OrderService;
 import com.company.order.OrderServiceImpl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.company.StaticConstants.DISCOUNT_LIST;
 import static com.company.StaticConstants.ORDER_LIST;
@@ -86,24 +84,52 @@ public class Main {
           break;
         case 4://add balance
           CustomerBalance customerBalance = findCustomerBalance(customer.getId());
-          GiftCardBalance giftCardBalance = findGiftCardBalance(customer.getId());
-          System.out.println("Which Account would you like to add?");
-          System.out.println("Type 1 for Customer Balance:" + customerBalance.getBalance());
-          System.out.println("Type 2 for Gift Card Balance:" + giftCardBalance.getBalance());
-          int balanceAccountSelection = scanner.nextInt();
-          System.out.println("How much you would like to add?");
-          double additionalAmount = scanner.nextInt();
+          GiftCardBalance giftBalance = findGiftCardBalance(customer.getId());
+          System.out.println(
+              "For add balance please type 'A', For send balance from your gift card please type 'S'");
+          String selectAddOrSend = new Scanner(System.in).next().toUpperCase();
 
-          switch (balanceAccountSelection) {
-            case 1:
-              customerBalance.addBalance(additionalAmount);
-              System.out.println("New Customer Balance:" + customerBalance.getBalance());
+          switch (selectAddOrSend) {
+            case "S":
+//                            GiftCard gb=findGiftCardBalance(customer.getId());
+
+              System.out.println("Please enter the recipient's id.");
+              System.out.println(findCustomerIdAndName(customer.getId()));
+              String idSelection = new Scanner(System.in).nextLine();
+
+              double newGiftCardBalance = 0.0;
+              System.out.println("How much would you like to send?");
+              double amount = new Scanner(System.in).nextDouble();
+              try {
+
+                giftBalance.sendMoney(UUID.fromString(idSelection), amount);
+              } catch (Exception e) {
+                System.err.println("Id could not find. Please try again!!");
+                continue;
+              }
+
               break;
-            case 2:
-              giftCardBalance.addBalance(additionalAmount);
-              System.out.println("New Gift Card Balance:" + giftCardBalance.getBalance());
-              break;
+            case "A":
+
+              System.out.println("Which account would you like to add:");
+              System.out.println("Type 1 for Customer Balance " + customerBalance.getBalance());
+              System.out.println("Type 2 for Gift Card Balance " + giftBalance.getBalance());
+              int balanceAccountSelection = scanner.nextInt();
+              System.out.println("How much you would like to add?");
+              double additionalAmount = scanner.nextDouble();
+              switch (balanceAccountSelection) {
+                case 1:
+                  customerBalance.addBalance(additionalAmount);
+                  System.out.println("New customer balance: " + customerBalance.getBalance());
+                  break;
+                case 2:
+                  giftBalance.addBalance(additionalAmount);
+                  System.out.println("New gift card balance: " + giftBalance.getBalance());
+
+                  break;
+              }
           }
+
           break;
         case 5://place an order
           Map<Product, Integer> map = new HashMap<>();
@@ -202,6 +228,17 @@ public class Main {
 
   }
 
+  private static Map<UUID, String> findCustomerIdAndName(UUID id) {
+    Map<UUID, String> mapIdAndName = StaticConstants.CUSTOMER_LIST.stream()
+        .collect(Collectors.toMap(Customer::getId, Customer::getUserName));
+    List<UUID> uuidList = StaticConstants.CUSTOMER_LIST.stream()
+        .map(Customer::getId).collect(Collectors.toList());
+
+    mapIdAndName.remove(id);
+
+    return mapIdAndName;
+  }
+
   private static Discount findDiscountById(String discountId) throws Exception {
     for (Discount discount : DISCOUNT_LIST) {
       if (discount.getId().toString().equals(discountId)) {
@@ -293,7 +330,7 @@ public class Main {
 
   private static String[] prepareMenuOptions() {
     return new String[]{"List Categories", "List Products", "List Discount", "See Balance",
-        "Add Balance",
+        "Add Balance-Send Balance",
         "Place an order", "See Cart", "See order details", "See your address", "Close App"};
   }
 
