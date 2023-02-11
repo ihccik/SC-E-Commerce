@@ -23,7 +23,7 @@ public class GiftCardBalance extends Balance implements SendMoney {
         if (desiredAmount > 0) {
             double newGiftCardBalance = 0.0;
             for (Balance balance : StaticConstants.GIFT_CARD_BALANCE_LIST) {
-                
+
                 if (balance.getCustomerId().toString().equals(id.toString())) {
                     if (!(getBalance() >= desiredAmount)) {
                         System.err.println("Insufficient balance, Please try again!");
@@ -31,7 +31,7 @@ public class GiftCardBalance extends Balance implements SendMoney {
 
                     } else {
                         balance.setBalance(balance.getBalance() + desiredAmount);
-//                        System.out.println(balance.getBalance());
+//                      System.out.println(balance.getBalance());
                         setBalance(getBalance() - desiredAmount);
                         System.out.println("Your funds has been successfully transferred. Your new balance is: " + getBalance());
                     }
