@@ -9,6 +9,7 @@ import com.company.order.Order;
 import com.company.order.OrderService;
 import com.company.order.OrderServiceImpl;
 
+import java.nio.channels.ScatteringByteChannel;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -179,13 +180,25 @@ public class Main {
           if (!cart.getProductMap().keySet().isEmpty()) {
             for (Product product : cart.getProductMap().keySet()) {
               System.out.println(
-                  "product name: " + product.getName() + " count: " + cart.getProductMap()
-                      .get(product));
+                      "product name: " + product.getName() + " count: " + cart.getProductMap()
+                              .get(product));
             }
           } else {
             System.out.println("Your cart is empty");
           }
           break;
+          /*
+
+          try {
+            if (cart.getProductMap().keySet() == null || cart.getProductMap().keySet().isEmpty()) {
+
+              System.err.println("There is no product added to cart yet");
+            }
+          }catch(NullPointerException e){
+                e.printStackTrace();
+          }
+
+           */
         case 7://see order details
           printOrdersByCustomerId(customer.getId());
           break;
