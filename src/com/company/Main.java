@@ -256,12 +256,23 @@ public class Main {
   }
 
   private static void printOrdersByCustomerId(UUID customerId) {
+    boolean hasOrders = false;//if customer has orders
+
     for (Order order : ORDER_LIST) {
       if (order.getCustomerId().toString().equals(customerId.toString())) {
         System.out.println(
             "Order status: " + order.getOrderStatus() + " order amount " + order.getPaidAmount()
                 + " order date " + order.getOrderDate());
+        hasOrders = true;
       }
+    }
+    //Printing the message if orders list is empty
+    if (!hasOrders) {
+      System.out.println("*****************************************");
+      System.out.println("**                                     **");
+      System.out.println("**      The orders list is empty       **");
+      System.out.println("**                                     **");
+      System.out.println("*****************************************");
     }
   }
 
