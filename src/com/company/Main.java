@@ -219,14 +219,23 @@ public class Main {
           break;
         case 8://see your address
           printAddressByCustomerId(customer);
+
           break;
         case 9:
+          addPhoneNumbers();
+          break;
+        case 10:
           System.exit(1);
+
           break;
       }
 
 
     }
+
+  }
+
+  private static void addPhoneNumbers (){
 
   }
 
@@ -344,7 +353,7 @@ public class Main {
   private static String[] prepareMenuOptions() {
     return new String[]{"List Categories", "List Products", "List Discount", "See Balance",
         "Add Balance-Send Balance",
-        "Place an order", "See Cart", "See order details", "See your address", "Close App"};
+        "Place an order", "See Cart", "See order details", "See your address", "Add phone numbers", "Close App"};
   }
 
 

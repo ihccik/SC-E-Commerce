@@ -10,6 +10,8 @@ public class Customer {
     private String email;
     private List<Address> address;
 
+    private List<PhoneNumber> phoneNumbers;
+
     public Customer(UUID id, String userName, String email) {
         this.id = id;
         this.userName = userName;
