@@ -9,6 +9,7 @@ import com.company.order.Order;
 import com.company.order.OrderService;
 import com.company.order.OrderServiceImpl;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -136,19 +137,28 @@ public class Main {
           cart.setProductMap(map);
           while (true) {
             System.out.println(
-                "Which product you want to add to your cart. For exit product selection Type : exit");
+                "Which product would you like to add to your cart?");
             for (Product product : StaticConstants.PRODUCT_LIST) {
+              DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
               try {
+                System.out.println();
                 System.out.println(
-                    "id:" + product.getId() + "price:" + product.getPrice() +
-                        "product category" + product.getCategoryName() +
-                        "stock:" + product.getRemainingStock() +
-                        "product delivery due:" + product.getDeliveryDueDate());
+                    "Product name: \"" + product.getName() +
+                            "\" - ID: " + product.getId() +
+                            " - Price: $" + product.getPrice() +
+                        " - Category: " + product.getCategoryName() +
+                        " - Stock: " + product.getRemainingStock() +
+                        " - Delivery Due Date: " + product.getDeliveryDueDate().format(df));
               } catch (Exception e) {
                 System.out.println(e.getMessage());
-                ;
               }
             }
+            System.out.println("To exit product selection - Type : \"exit\"");
+
+            if (scanner.next().equals("exit")) {
+              break;
+            }
+
             String productId = scanner.next();
 
             try {
