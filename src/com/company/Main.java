@@ -133,6 +133,8 @@ public class Main {
 
           break;
         case 5://place an order
+
+          boolean exit = false;
           Map<Product, Integer> map = new HashMap<>();
           cart.setProductMap(map);
           while (true) {
@@ -155,11 +157,12 @@ public class Main {
             }
             System.out.println("To exit product selection - Type : \"exit\"");
 
-            if (scanner.next().equals("exit")) {
+            String productId = scanner.next();
+
+            if (productId.equals("exit")) {
+              exit = true;
               break;
             }
-
-            String productId = scanner.next();
 
             try {
               Product product = findProductById(productId);
@@ -179,37 +182,42 @@ public class Main {
               break;
             }
           }
-
-          System.out.println(
-              "seems there are discount options. Do you want to see and apply to your cart if it is applicable. For no discount type no");
-          for (Discount discount : DISCOUNT_LIST) {
+          if (exit) {
+            break;
+          }else {
             System.out.println(
-                "discount id " + discount.getId() + " discount name: " + discount.getName());
-          }
-          String discountId = scanner.next();
-          if (!discountId.equals("no")) {
-            try {
-              Discount discount = findDiscountById(discountId);
-              if (discount.decideDiscountIsApplicableToCart(cart)) {
-                cart.setDiscountId(discount.getId());
+                    "seems there are discount options. Do you want to see and apply to your cart if it is applicable. For no discount type no");
+            for (Discount discount : DISCOUNT_LIST) {
+              System.out.println(
+                      "discount id " + discount.getId() + " discount name: " + discount.getName());
+            }
+            String discountId = scanner.next();
+            if (!discountId.equals("no")) {
+              try {
+                Discount discount = findDiscountById(discountId);
+                if (discount.decideDiscountIsApplicableToCart(cart)) {
+                  cart.setDiscountId(discount.getId());
+                }
+              } catch (Exception e) {
+                System.out.println(e.getMessage());
               }
-            } catch (Exception e) {
-              System.out.println(e.getMessage());
+
             }
 
+            OrderService orderService = new OrderServiceImpl();
+            String result = orderService.placeOrder(cart);
+            if (result.equals("Order has been placed successfully")) {
+              System.out.println("Order is successful");
+              updateProductStock(cart.getProductMap());
+              cart.setProductMap(new HashMap<>());
+              cart.setDiscountId(null);
+            } else {
+              System.out.println(result);
+            }
+            break;
           }
 
-          OrderService orderService = new OrderServiceImpl();
-          String result = orderService.placeOrder(cart);
-          if (result.equals("Order has been placed successfully")) {
-            System.out.println("Order is successful");
-            updateProductStock(cart.getProductMap());
-            cart.setProductMap(new HashMap<>());
-            cart.setDiscountId(null);
-          } else {
-            System.out.println(result);
-          }
-          break;
+
         case 6://See cart
           System.out.println("Your Cart");
           if (cart.getProductMap() != null) {
