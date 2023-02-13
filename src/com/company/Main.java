@@ -33,8 +33,14 @@ public class Main {
         for(int i = 0; i< StaticConstants.CUSTOMER_LIST.size(); i++){
             System.out.println("Type " + i + " for customer:" + StaticConstants.CUSTOMER_LIST.get(i).getUserName());
         }
-
-        Customer customer = StaticConstants.CUSTOMER_LIST.get(scanner.nextInt());
+        Customer customer = null;
+        do{
+            try {
+                customer = StaticConstants.CUSTOMER_LIST.get(scanner.nextInt());
+            }catch (IndexOutOfBoundsException e){
+                System.err.println("Enter valid ID number");
+            }
+        }while (customer==null);
 
         Cart cart = new Cart(customer);
 
