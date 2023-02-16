@@ -221,8 +221,10 @@ public class Main {
           printAddressByCustomerId(customer);
 
           break;
-        case 9:
-          addPhoneNumbers();
+        case 9: //add phone number
+          System.out.println("Please add your phone number");
+          addPhoneNumbers((PhoneNumber) customer.getPhoneNumbers());
+
           break;
         case 10:
           System.exit(1);
@@ -235,7 +237,42 @@ public class Main {
 
   }
 
-  private static void addPhoneNumbers (){
+  private static void addPhoneNumbers (PhoneNumber phoneNumber){
+
+    long n=10;
+    int a[]=new int[10];
+    Scanner sc=new Scanner(System.in);
+    System.out.println("Enter a digits of phone number");
+    for(int i=0;i<n;i++)
+    {
+
+      a[i]=sc.nextInt();
+      if(a[i]<0 || a[i]>9)
+      {
+
+        System.out.print("wrong input");
+        return;
+      }
+
+      System.out.println("");
+
+    }
+
+    System.out.print("phone number format--->");
+    for(int i=0;i<n;i++)
+    {
+      if(i==0)
+        System.out.print("\"(");
+      if(i==3)
+        System.out.print(") ");
+
+      if(i==6)
+        System.out.print("-");
+
+      System.out.print(a[i]);
+
+      if(i==9);
+    }
 
   }
 
@@ -309,7 +346,7 @@ public class Main {
       cart.getProductMap().put(product, count);
       return true;
     }
-    return false; //BREAK TILL 3:10 PM
+    return false;
 
   }
 

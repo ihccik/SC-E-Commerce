@@ -25,6 +25,14 @@ public class Customer {
         this.address = address;
     }
 
+    public Customer(List<PhoneNumber> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    public List<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
     public UUID getId() {
         return id;
     }
