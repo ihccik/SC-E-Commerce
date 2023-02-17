@@ -13,8 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.company.StaticConstants.DISCOUNT_LIST;
-import static com.company.StaticConstants.ORDER_LIST;
+import static com.company.StaticConstants.*;
 
 public class Main {
 
@@ -118,24 +117,8 @@ public class Main {
 
               break;
             case "A":
+              addBalanceForYourAccount(customer.getId());
 
-              System.out.println("Which account would you like to add:");
-              System.out.println("Type 1 for Customer Balance " + customerBalance.getBalance());
-              System.out.println("Type 2 for Gift Card Balance " + giftBalance.getBalance());
-              int balanceAccountSelection = scanner.nextInt();
-              System.out.println("How much you would like to add?");
-              double additionalAmount = scanner.nextDouble();
-              switch (balanceAccountSelection) {
-                case 1:
-                  customerBalance.addBalance(additionalAmount);
-                  System.out.println("New customer balance: " + customerBalance.getBalance());
-                  break;
-                case 2:
-                  giftBalance.addBalance(additionalAmount);
-                  System.out.println("New gift card balance: " + giftBalance.getBalance());
-
-                  break;
-              }
           }
 
           break;
@@ -253,6 +236,27 @@ public class Main {
 
     }
 
+  }
+
+  private static double addBalanceForYourAccount(UUID id) {
+    System.out.println("Which account would you like to add:");
+    CustomerBalance customerBalance=findCustomerBalance(id);
+    GiftCardBalance giftCardBalance=findGiftCardBalance(id);
+    System.out.println("Type 1 for Customer Balance " + customerBalance.getBalance());
+    System.out.println("Type 2 for Gift Card Balance " + giftCardBalance.getBalance());
+    Scanner scanner = new Scanner(System.in);
+    int balanceAccountSelection = scanner.nextInt();
+    System.out.println("How much you would like to add?");
+    double additionalAmount = scanner.nextDouble();
+    if (balanceAccountSelection==1){
+      customerBalance.addBalance(additionalAmount);
+        System.out.println("New customer balance: " + customerBalance.getBalance());
+        return customerBalance.getBalance();
+    }else{
+      giftCardBalance.addBalance(additionalAmount);
+        System.out.println("New gift card balance: " + giftCardBalance.getBalance());
+        return giftCardBalance.getBalance();
+    }
   }
 
   private static Map<UUID, String> findCustomerIdAndName(UUID id) {
