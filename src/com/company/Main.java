@@ -238,7 +238,7 @@ public class Main {
 
   }
 
-  private static double addBalanceForYourAccount(UUID id) {
+  private static void addBalanceForYourAccount(UUID id) {
     System.out.println("Which account would you like to add:");
     CustomerBalance customerBalance=findCustomerBalance(id);
     GiftCardBalance giftCardBalance=findGiftCardBalance(id);
@@ -251,11 +251,9 @@ public class Main {
     if (balanceAccountSelection==1){
       customerBalance.addBalance(additionalAmount);
         System.out.println("New customer balance: " + customerBalance.getBalance());
-        return customerBalance.getBalance();
     }else{
       giftCardBalance.addBalance(additionalAmount);
         System.out.println("New gift card balance: " + giftCardBalance.getBalance());
-        return giftCardBalance.getBalance();
     }
   }
 
