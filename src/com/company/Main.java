@@ -118,24 +118,13 @@ public class Main {
 
               break;
             case "A":
-
               System.out.println("Which account would you like to add:");
               System.out.println("Type 1 for Customer Balance " + customerBalance.getBalance());
               System.out.println("Type 2 for Gift Card Balance " + giftBalance.getBalance());
               int balanceAccountSelection = scanner.nextInt();
-              System.out.println("How much you would like to add?");
-              double additionalAmount = scanner.nextDouble();
-              switch (balanceAccountSelection) {
-                case 1:
-                  customerBalance.addBalance(additionalAmount);
-                  System.out.println("New customer balance: " + customerBalance.getBalance());
+              customerBalance.addBalance(balanceAccountSelection);
+              giftBalance.addBalance(balanceAccountSelection);
                   break;
-                case 2:
-                  giftBalance.addBalance(additionalAmount);
-                  System.out.println("New gift card balance: " + giftBalance.getBalance());
-
-                  break;
-              }
           }
 
           break;
