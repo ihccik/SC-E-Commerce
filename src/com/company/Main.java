@@ -64,9 +64,11 @@ public class Main {
           break;
         case 1: //list products  //product name, product category name
           try {
+            System.out.printf("%-20s %-21s %n", "Product Name ", "Product Category Name");
             for (Product product : StaticConstants.PRODUCT_LIST) {
-              System.out.println("Product Name:" + product.getName() + "Product Category Name:"
-                  + product.getCategoryName());
+              System.out.printf("%-20s %-20s %n", product.getName(), product.getCategoryName());
+//              System.out.println("Product Name: " + product.getName() + " Product Category Name: "
+//                  + product.getCategoryName());
             }
           } catch (Exception e) {
             System.out.println(
