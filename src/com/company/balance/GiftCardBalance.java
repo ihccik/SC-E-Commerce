@@ -2,7 +2,6 @@ package com.company.balance;
 
 import com.company.StaticConstants;
 
-import java.util.Scanner;
 import java.util.UUID;
 
 public class GiftCardBalance extends Balance implements SendMoney {
@@ -13,15 +12,9 @@ public class GiftCardBalance extends Balance implements SendMoney {
     }
 
     @Override
-    public Double addBalance(int selection) {
-        if (selection==2){
-            System.out.println("How much you would like to add?");
-            double additionalAmount = new Scanner(System.in).nextDouble();
-            double promotionAmount = additionalAmount * 10 / 100;
-            setBalance(getBalance() + additionalAmount + promotionAmount);
-            System.out.println("New giftCard balance: " + getBalance());
-        }
-
+    public Double addBalance(Double additionalBalance) {
+        double promotionAmount = additionalBalance * 10 / 100;
+        setBalance(getBalance() + additionalBalance + promotionAmount);
         return getBalance();
     }
 

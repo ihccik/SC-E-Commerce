@@ -1,6 +1,5 @@
 package com.company.balance;
 
-import java.util.Scanner;
 import java.util.UUID;
 
 public class CustomerBalance extends Balance{
@@ -10,13 +9,8 @@ public class CustomerBalance extends Balance{
     }
 
     @Override
-    public Double addBalance(int selection) {
-        if (selection==1){
-            System.out.println("How much you would like to add?");
-            double additionalAmount = new Scanner(System.in).nextDouble();
-            setBalance(getBalance() + additionalAmount);
-            System.out.println("New customer balance: " + getBalance());
-        }
+    public Double addBalance(Double additionalBalance) {
+        setBalance(getBalance() + additionalBalance);
         return getBalance();
     }
 }

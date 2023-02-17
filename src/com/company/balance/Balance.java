@@ -13,7 +13,7 @@ public abstract class Balance {
         this.balance = balance;
     }
 
-    public abstract Double addBalance(int selection);
+    public abstract Double addBalance(Double additionalBalance);
 
     public UUID getCustomerId() {
         return customerId;
