@@ -306,11 +306,11 @@ public class Main {
   }
 
   private static void printAddressByCustomerId(Customer customer) {
-    for (Address address : customer.getAddress()) {
-      System.out.println(" Street Name: " + address.getStreetName() +
-          " Street Number: " + address.getStreetNumber() + "ZipCode:  "
-          + address.getZipCode() + " State: " + address.getState());
-    }
+//    Stream method implementation
+
+    customer.getAddress().stream().forEach(System.out::println);
+    System.out.println();
+
   }
 
   private static boolean putItemToCartIfStockAvailable(Cart cart, Product product) {
