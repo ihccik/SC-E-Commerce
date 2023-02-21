@@ -242,12 +242,12 @@ public class Main {
   }
 
   private static Discount findDiscountById(String discountId) throws Exception {
-    for (Discount discount : DISCOUNT_LIST) {
-      if (discount.getId().toString().equals(discountId)) {
-        return discount;
-      }
+    Optional<Discount>discount1=DISCOUNT_LIST.stream().filter(i->i.getId().toString().equals(discountId)).findFirst();
+    if(discount1.isPresent()){
+      return discount1.get();
+    }else{
+      throw new Exception("Discount couldn't applied because couldn't found");
     }
-    throw new Exception("Discount couldn't applied because couldn't found");
   }
 
   private static void updateProductStock(Map<Product, Integer> map) {
