@@ -333,15 +333,16 @@ public class Main {
 
   }
 
-  private static Product findProductById(String productId) throws Exception {
-    for (Product product : StaticConstants.PRODUCT_LIST) {
-      if (product.getId().toString().equals(productId)) {
-        return product;
-      }
-    }
-    throw new Exception("Product not found");
-  }
 
+  private static Product findProductById (String productId) throws Exception {
+    Optional<Product> product = PRODUCT_LIST.stream().filter(p->p.getId().toString().equals(productId)).findFirst();
+
+    if (product.isPresent()) {
+      return product.get();
+    }else {
+      throw new Exception ("Product not found");
+    }
+  }
 
   private static CustomerBalance findCustomerBalance(UUID customerId) {
     for (Balance customerBalance : StaticConstants.CUSTOMER_BALANCE_LIST) {
