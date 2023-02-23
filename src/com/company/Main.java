@@ -239,42 +239,16 @@ public class Main {
 
   private static void addPhoneNumbers (PhoneNumber phoneNumber){
 
-    long n=10;
-    int a[]=new int[10];
-    Scanner sc=new Scanner(System.in);
-    System.out.println("Enter a digits of phone number");
-    for(int i=0;i<n;i++)
-    {
+    Scanner input =new Scanner(System.in);
+    long customerPhoneNumber;
+    customerPhoneNumber = input.nextLong();
+    String formatted = ("" + customerPhoneNumber).replaceAll("(...)(...)(....)", "($1) $2-$3");
+    System.out.println(formatted);
 
-      a[i]=sc.nextInt();
-      if(a[i]<0 || a[i]>9)
-      {
-
-        System.out.print("wrong input");
-        return;
-      }
-
-      System.out.println("");
 
     }
 
-    System.out.print("phone number format--->");
-    for(int i=0;i<n;i++)
-    {
-      if(i==0)
-        System.out.print("\"(");
-      if(i==3)
-        System.out.print(") ");
 
-      if(i==6)
-        System.out.print("-");
-
-      System.out.print(a[i]);
-
-      if(i==9);
-    }
-
-  }
 
   private static Map<UUID, String> findCustomerIdAndName(UUID id) {
     Map<UUID, String> mapIdAndName = StaticConstants.CUSTOMER_LIST.stream()
