@@ -270,13 +270,10 @@ public class Main {
     return mapIdAndName;
   }
 
-  private static Discount findDiscountById(String discountId) throws Exception {
-    for (Discount discount : DISCOUNT_LIST) {
-      if (discount.getId().toString().equals(discountId)) {
-        return discount;
-      }
-    }
-    throw new Exception("Discount couldn't applied because couldn't found");
+  private static Discount findDiscountById(String discountId) {
+    return DISCOUNT_LIST.stream()
+        .filter(i -> i.getId().toString().equals(discountId)).findFirst().orElseThrow(
+            () -> new RuntimeException("Discount couldn't applied because couldn't found"));
   }
 
   private static void updateProductStock(Map<Product, Integer> map) {
