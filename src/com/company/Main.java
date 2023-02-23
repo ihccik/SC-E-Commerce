@@ -241,14 +241,10 @@ public class Main {
     return mapIdAndName;
   }
 
-  private static Discount findDiscountById(String discountId) throws Exception {
-    Optional<Discount> optDiscount = DISCOUNT_LIST.stream()
-        .filter(i -> i.getId().toString().equals(discountId)).findFirst();
-    if (optDiscount.isPresent()) {
-      return optDiscount.get();
-    } else {
-      throw new Exception("Discount couldn't applied because couldn't found");
-    }
+  private static Discount findDiscountById(String discountId) {
+    return DISCOUNT_LIST.stream()
+        .filter(i -> i.getId().toString().equals(discountId)).findFirst().orElseThrow(
+            () -> new RuntimeException("Discount couldn't applied because couldn't found"));
   }
 
   private static void updateProductStock(Map<Product, Integer> map) {
