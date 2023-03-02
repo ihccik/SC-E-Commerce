@@ -233,6 +233,7 @@ public class Main {
       }
 
 
+
     }
 
   }
@@ -244,6 +245,10 @@ public class Main {
     customerPhoneNumber = input.nextLong();
     String formatted = ("" + customerPhoneNumber).replaceAll("(...)(...)(....)", "($1) $2-$3");
     System.out.println(formatted);
+
+    ArrayList<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
+
+    phoneNumbers.add(new PhoneNumber(customerPhoneNumber));
 
 
     }
