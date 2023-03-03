@@ -9,7 +9,6 @@ import com.company.order.Order;
 import com.company.order.OrderService;
 import com.company.order.OrderServiceImpl;
 
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -67,8 +66,6 @@ public class Main {
             System.out.printf("%-20s %-21s %n", "Product Name ", "Product Category Name");
             for (Product product : StaticConstants.PRODUCT_LIST) {
               System.out.printf("%-20s %-20s %n", product.getName(), product.getCategoryName());
-//              System.out.println("Product Name: " + product.getName() + " Product Category Name: "
-//                  + product.getCategoryName());
             }
           } catch (Exception e) {
             System.out.println(
@@ -219,16 +216,32 @@ public class Main {
         case 9: //add phone number
           System.out.println("Please add your phone number");
           addPhoneNumbers(customer);
-
           break;
         case 10:
           System.exit(1);
 
           break;
       }
-
     }
+  }
 
+  private static void addPhoneNumbers(Customer customer) {
+    Scanner input = new Scanner(System.in);
+    long customerPhoneNumber;
+    customerPhoneNumber = input.nextLong();
+    String formatted = ("" + customerPhoneNumber).replaceAll("(...)(...)(....)", "($1) $2-$3");
+    System.out.println(formatted);
+
+    List<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
+
+    phoneNumbers.add(new PhoneNumber(customerPhoneNumber));
+
+    customer.setPhoneNumbers(phoneNumbers);
+
+    System.out.println("Your phone number is saved");
+
+    customer.getPhoneNumbers()
+        .forEach(phoneNumber -> System.out.println(phoneNumber.getPhoneNumber()));
   }
 
   private static void addBalanceForYourAccount(UUID id) {
