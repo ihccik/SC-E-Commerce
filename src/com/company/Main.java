@@ -223,7 +223,7 @@ public class Main {
           break;
         case 9: //add phone number
           System.out.println("Please add your phone number");
-          addPhoneNumbers((PhoneNumber) customer.getPhoneNumbers());
+          addPhoneNumbers(customer);
 
           break;
         case 10:
@@ -238,7 +238,7 @@ public class Main {
 
   }
 
-  private static void addPhoneNumbers (PhoneNumber phoneNumber){
+  private static void addPhoneNumbers (Customer customer){
 
     Scanner input =new Scanner(System.in);
     long customerPhoneNumber;
@@ -246,10 +246,15 @@ public class Main {
     String formatted = ("" + customerPhoneNumber).replaceAll("(...)(...)(....)", "($1) $2-$3");
     System.out.println(formatted);
 
-    ArrayList<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
+    List<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
 
     phoneNumbers.add(new PhoneNumber(customerPhoneNumber));
 
+    customer.setPhoneNumbers(phoneNumbers);
+
+    System.out.println("Your phone number is saved");
+
+    customer.getPhoneNumbers().forEach(phoneNumber -> System.out.println(phoneNumber.getPhoneNumber()));
 
     }
 
