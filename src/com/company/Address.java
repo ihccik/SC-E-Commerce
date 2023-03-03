@@ -2,6 +2,7 @@ package com.company;
 
 public class Address {
 
+
     private String streetNumber;
     private String streetName;
     private String additionalAddressLine;
@@ -34,5 +35,16 @@ public class Address {
 
     public String getState() {
         return state;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "streetNumber='" + streetNumber + '\'' +
+                ", streetName='" + streetName + '\'' +
+                ", additionalAddressLine='" + additionalAddressLine + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", state='" + state + '\'' +
+                '}';
     }
 }
