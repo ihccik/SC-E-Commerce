@@ -232,31 +232,10 @@ public class Main {
           break;
       }
 
-
-
     }
 
   }
 
-  private static void addPhoneNumbers (Customer customer){
-
-    Scanner input =new Scanner(System.in);
-    long customerPhoneNumber;
-    customerPhoneNumber = input.nextLong();
-    String formatted = ("" + customerPhoneNumber).replaceAll("(...)(...)(....)", "($1) $2-$3");
-    System.out.println(formatted);
-
-    List<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
-
-    phoneNumbers.add(new PhoneNumber(customerPhoneNumber));
-
-    customer.setPhoneNumbers(phoneNumbers);
-
-    System.out.println("Your phone number is saved");
-
-    customer.getPhoneNumbers().forEach(phoneNumber -> System.out.println(phoneNumber.getPhoneNumber()));
-
-    }
 
 
 
@@ -374,7 +353,8 @@ public class Main {
   private static String[] prepareMenuOptions() {
     return new String[]{"List Categories", "List Products", "List Discount", "See Balance",
         "Add Balance-Send Balance",
-        "Place an order", "See Cart", "See order details", "See your address", "Add phone numbers", "Close App"};
+        "Place an order", "See Cart", "See order details", "See your address", "Add phone numbers",
+        "Close App"};
   }
 
 
