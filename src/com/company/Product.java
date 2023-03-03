@@ -3,6 +3,8 @@ package com.company;
 import com.company.category.Category;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class Product {
@@ -70,6 +72,24 @@ public class Product {
             }
         }
         throw new Exception("Category could not find");
+    }
+
+    public static void listAllProducts() {
+        for (Product product : StaticConstants.PRODUCT_LIST) {
+            System.out.println(product.toString());
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", remainingStock=" + remainingStock +
+                ", categoryId=" + categoryId +
+                '}';
     }
 }
 

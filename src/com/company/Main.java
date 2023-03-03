@@ -130,23 +130,8 @@ public class Main {
           Map<Product, Integer> map = new HashMap<>();
           cart.setProductMap(map);
           while (true) {
-            System.out.println(
-                "Which product would you like to add to your cart?");
-            for (Product product : StaticConstants.PRODUCT_LIST) {
-              DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-              try {
-                System.out.println();
-                System.out.println(
-                    "Product name: \"" + product.getName() +
-                            "\" - ID: " + product.getId() +
-                            " - Price: $" + product.getPrice() +
-                        " - Category: " + product.getCategoryName() +
-                        " - Stock: " + product.getRemainingStock() +
-                        " - Delivery Due Date: " + product.getDeliveryDueDate().format(df));
-              } catch (Exception e) {
-                System.out.println(e.getMessage());
-              }
-            }
+            System.out.println("Which product would you like to add to your cart?");
+            Product.listAllProducts();
             System.out.println("To exit product selection - Type : \"exit\"");
 
             String productId = scanner.next();
